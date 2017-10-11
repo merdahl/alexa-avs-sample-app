@@ -397,8 +397,11 @@ echo ""
 echo "======================================================="
 echo ""
 echo ""
-select_option audio_output "3.5mm jack" "HDMI audio output"
-if [ "$audio_output" == "3.5mm jack" ]; then
+select_option audio_output "do nothing" "3.5mm jack" "HDMI audio output"
+
+if [ "$audio_output" == "do nothing" ]; then
+  echo "edit ~/.asoundrc to suit your system."
+elif [ "$audio_output" == "3.5mm jack" ]; then
   sudo amixer cset numid=3 1
   echo "Audio forced to 3.5mm jack."
 else
@@ -453,8 +456,8 @@ echo "========== Update Aptitude ==========="
 sudo apt-get update
 sudo apt-get upgrade -yq
 
-echo "========== Installing Git ============"
-sudo apt-get install -y git
+#echo "========== Installing Git ============"
+#sudo apt-get install -y git
 
 echo "========== Getting the code for Kitt-Ai ==========="
 cd $Kitt_Ai_Loc
@@ -471,9 +474,9 @@ sudo apt-get -y install libasound2-dev
 sudo apt-get -y install libatlas-base-dev
 sudo ldconfig
 
-echo "========== Installing WiringPi ==========="
-sudo apt-get -y install wiringpi
-sudo ldconfig
+#echo "========== Installing WiringPi ==========="
+#sudo apt-get -y install wiringpi
+#sudo ldconfig
 
 echo "========== Installing VLC and associated Environmental Variables =========="
 sudo apt-get install -y vlc vlc-nox vlc-data
@@ -482,11 +485,14 @@ sudo sh -c "echo \"/usr/lib/vlc\" >> /etc/ld.so.conf.d/vlc_lib.conf"
 sudo sh -c "echo \"VLC_PLUGIN_PATH=\"/usr/lib/vlc/plugin\"\" >> /etc/environment"
 sudo ldconfig
 
-echo "========== Installing NodeJS =========="
-sudo apt-get install -y nodejs npm build-essential
-sudo ln -s /usr/bin/nodejs /usr/bin/node
-node -v
-sudo ldconfig
+echo "========== Installing Build-Essential =========="
+sudo apt-get install build-essential
+
+#echo "========== Installing NodeJS =========="
+#sudo apt-get install -y nodejs npm build-essential
+#sudo ln -s /usr/bin/nodejs /usr/bin/node
+#node -v
+#sudo ldconfig
 
 echo "========== Installing Maven =========="
 sudo apt-get install -y maven
@@ -536,10 +542,7 @@ fi
 use_template $Java_Client_Loc template_config_json config.json
 
 echo "========== Configuring ALSA Devices =========="
-if [ -f /home/$User/.asoundrc ]; then
-  rm /home/$User/.asoundrc
-fi
-printf "pcm.!default {\n  type asym\n   playback.pcm {\n     type plug\n     slave.pcm \"hw:0,0\"\n   }\n   capture.pcm {\n     type plug\n     slave.pcm \"hw:1,0\"\n   }\n}" >> /home/$User/.asoundrc
+printf "pcm.!default plughw:Device\nctl.!default plughw:Device\n" >> /home/$User/.asoundrc
 
 echo "========== Installing CMake =========="
 sudo apt-get install -y cmake

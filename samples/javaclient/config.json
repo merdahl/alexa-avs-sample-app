@@ -1,19 +1,22 @@
 {
-    "productId":"",
-    "dsn":"",
-    "provisioningMethod":"",
-    "wakeWordAgentEnabled":false,
+    "productId":"myThingRev0_1",
+    "dsn":"123456789",
+    "provisioningMethod":"companionService",
+    "wakeWordAgentEnabled":true,
+    "headless":true,
     "locale":"en-US",
+    "avsHost":"https://avs-alexa-na.amazon.com",
     "companionApp":{
         "localPort":8443,
-        "sslKeyStore":"",
-        "sslKeyStorePassphrase":"",
-        "lwaUrl":"https://api.amazon.com"
+        "lwaUrl":"https://api.amazon.com",
+        "sslKeyStore":"/home/debian/alexa-avs-sample-app/samples/javaclient/certs/server/jetty.pkcs12",
+        "sslKeyStorePassphrase":""
     },
     "companionService":{
         "serviceUrl":"https://localhost:3000",
-        "sslClientKeyStore":"",
+        "sslClientKeyStore":"/home/debian/alexa-avs-sample-app/samples/javaclient/certs/client/client.pkcs12",
         "sslClientKeyStorePassphrase":"",
-        "sslCaCert":""
+        "sslCaCert":"/home/debian/alexa-avs-sample-app/samples/javaclient/certs/ca/ca.crt",
+        "sessionId":"0ee52c53-4b96-4e03-b6be-a6de1c9c9a2f"
     }
 }

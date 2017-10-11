@@ -30,9 +30,9 @@ Because the eMMC of the BeagleBone Black (and derivatives) is relatively small, 
 
 ## What's new?
 
-** Oct 11, 2017:**
+**Oct 11, 2017:**
 
-* The automated installer has been hacked specifically to support the BeagleBone Black family of devices.
+* The automated installer has been hacked specifically to support the BeagleBone Black family of devices.  Note, it will take a LONG time :)
 
 **July 6, 2017:**
 
